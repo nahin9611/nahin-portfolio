@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD. ZUHAM HOSSAIN NAHIN | Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 6.5.1 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* --- CORE CSS VARIABLES FOR FLAWLESS DAY/NIGHT MODE --- */
+        :root {
+            /* Dark Theme Defaults */
+            --bg-base-rgb: 3, 3, 8;
+            --bg-base: #030308;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af; 
+            --text-tertiary: #d1d5db; 
+            
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #bc13fe;
+            
+            --glass-bg: rgba(15, 15, 25, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-highlight: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            
+            --inner-bg: rgba(0, 0, 0, 0.4);
+            --input-bg: rgba(0, 0, 0, 0.3);
+            
+            --code-text: rgba(0, 243, 255, 0.8);
+            --code-gradient: rgba(0, 243, 255, 0.05);
+        }
+
+        /* Light Theme Overrides */
+        body.light-mode {
+            --bg-base-rgb: 248, 250, 252;
+            --bg-base: #f8fafc;
+            --text-primary: #0f172a; 
+            --text-secondary: #64748b; 
+            --text-tertiary: #334155; 
+            
+            --neon-cyan: #0284c7; 
+            --neon-magenta: #9333ea; 
+            
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --glass-highlight: rgba(255, 255, 255, 0.8);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            
+            --inner-bg: rgba(255, 255, 255, 0.6);
+            --input-bg: rgba(255, 255, 255, 0.7);
+            
+            --code-text: rgba(2, 132, 199, 0.3);
+            --code-gradient: rgba(2, 132, 199, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            margin: 0;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        h1, h2, h3, h4, h5, .cyber-font { font-family: 'Space Grotesk', sans-serif; }
+
+        /* Custom Theming Utility Classes */
+        .theme-bg-base { background-color: var(--bg-base); transition: background-color 0.5s ease; }
+        .theme-text-primary { color: var(--text-primary); transition: color 0.5s ease; }
+        .theme-text-secondary { color: var(--text-secondary); transition: color 0.5s ease; }
+        .theme-text-tertiary { color: var(--text-tertiary); transition: color 0.5s ease; }
+        .theme-inner-bg { background-color: var(--inner-bg); transition: background-color 0.5s ease; }
+        .theme-input-bg { background-color: var(--input-bg); transition: background-color 0.5s ease; }
+        .theme-border { border-color: var(--glass-border); transition: border-color 0.5s ease; }
+        .theme-border-base { border-color: var(--bg-base); transition: border-color 0.5s ease; }
+        .theme-chat-overlay { background-color: rgba(var(--bg-base-rgb), 0.95); transition: background-color 0.5s ease; }
+
+        .theme-timeline::before {
+            content: ''; position: absolute; inset: 0; margin-left: 1.25rem; width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--glass-border), transparent);
+            transition: background 0.5s ease;
+        }
+        @media (min-width: 768px) {
+            .theme-timeline::before { margin-left: auto; margin-right: auto; transform: translateX(0); }
+        }
+
+        /* --- System Boot-Up Screen --- */
+        #boot-screen {
+            background-color: #030308 !important; 
+            color: #00f3ff !important;
+            z-index: 9999;
+        }
+
+        /* --- Scroll-Linked Code Typing Background --- */
+        #code-bg-container {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1; padding: 2vw; overflow: hidden; pointer-events: none;
+            background-image: radial-gradient(circle at center, var(--code-gradient) 0%, transparent 70%);
+            transition: background-image 0.5s ease;
+            filter: blur(3px);
+        }
+        #code-bg-text {
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--code-text);
+            font-size: 14px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;
+            text-shadow: 0 0 8px var(--code-text);
+            transition: color 0.5s ease, text-shadow 0.5s ease;
+        }
+        .cursor-blink { animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* ----- Premium Glassmorphism ----- */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid var(--glass-highlight);
+            border-left: 1px solid var(--glass-highlight);
+            box-shadow: var(--glass-shadow), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            border-radius: 24px; position: relative; overflow: hidden;
+            transition: background 0.5s, border-color 0.5s, box-shadow 0.5s;
+        }
+
+        /* ----- iOS 27 Futuristic Button ----- */
+        .ios27-btn {
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border); border-radius: 99px;
+            padding: 12px 28px; color: var(--text-primary); font-weight: 600; letter-spacing: 0.5px;
+            box-shadow: inset 0 1px 1px var(--glass-highlight), 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            cursor: pointer; text-transform: uppercase; font-size: 0.875rem;
+        }
+        .ios27-btn::before {
+            content: ''; position: absolute; top: -50%; left: -150%; width: 50%; height: 200%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, var(--glass-highlight) 50%, rgba(255,255,255,0) 100%);
+            transform: rotate(30deg); transition: all 0.6s ease;
+        }
+        .ios27-btn:hover {
+            transform: translateY(-2px) scale(1.02); border-color: var(--neon-cyan);
+            box-shadow: inset 0 1px 1px var(--glass-highlight), 0 8px 25px rgba(0, 0, 0, 0.15), 0 0 20px var(--neon-cyan); 
+        }
+        .ios27-btn:hover::before { left: 200%; }
+        .ios27-btn:active { transform: translateY(1px) scale(0.98); }
+
+        /* ----- 3D Scroll Reveal Animations ----- */
+        .perspective-container { perspective: 1200px; }
+        .reveal-3d { opacity: 0; transform: translateY(120px) translateZ(-100px) rotateX(-15deg); transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1); transform-style: preserve-3d; will-change: transform, opacity; }
+        .reveal-3d.visible { opacity: 1; transform: translateY(0) translateZ(0) rotateX(0); }
+        .reveal-left { opacity: 0; transform: translateX(-100px) rotateY(-15deg); transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal-right { opacity: 0; transform: translateX(100px) rotateY(15deg); transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0) rotateY(0); }
+
+        /* ----- Neon Text Utilities ----- */
+        .text-glow-cyan { text-shadow: 0 0 10px var(--neon-cyan); color: var(--neon-cyan); transition: color 0.5s, text-shadow 0.5s; }
+        .text-glow-magenta { text-shadow: 0 0 10px var(--neon-magenta); color: var(--neon-magenta); transition: color 0.5s, text-shadow 0.5s; }
+
+        body.light-mode .text-glow-cyan { text-shadow: 0 0 10px rgba(2, 132, 199, 0.3); }
+        body.light-mode .text-glow-magenta { text-shadow: 0 0 10px rgba(147, 51, 234, 0.3); }
+
+        /* Interactive 3D Card Hover & Dynamic Cursor Glow */
+        .tilt-card { transform-style: preserve-3d; transition: transform 0.1s ease-out; position: relative; }
+        .tilt-card::before {
+            content: ""; position: absolute; inset: 0; z-index: 0; border-radius: 24px;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--glass-highlight), transparent 40%);
+            opacity: 0; transition: opacity 0.3s; pointer-events: none; mix-blend-mode: overlay;
+        }
+        .tilt-card:hover::before { opacity: 1; }
+        .tilt-card-content { transform: translateZ(40px); position: relative; z-index: 10; }
+
+        /* --- Custom Scrollbar styling applied globally --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
+        * { scrollbar-width: thin; scrollbar-color: var(--glass-border) transparent; }
+
+        /* --- AI Chat Custom Styles --- */
+        .chat-bubble-ai { background: rgba(0, 243, 255, 0.1); border: 1px solid rgba(0, 243, 255, 0.2); border-radius: 12px 12px 12px 0; }
+        .chat-bubble-user { background: rgba(188, 19, 254, 0.15); border: 1px solid rgba(188, 19, 254, 0.3); border-radius: 12px 12px 0 12px; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500 selection:text-white">
+
+    <!-- 1. System Boot-Up Loading Screen -->
+    <div id="boot-screen" class="fixed inset-0 flex flex-col justify-center px-10 md:px-20 font-mono text-sm md:text-lg transition-opacity duration-500">
+        <div id="boot-text" class="whitespace-pre-wrap"></div>
+        <div class="mt-2" id="boot-cursor" style="display: none;"><span class="cursor-blink">█</span></div>
+    </div>
+
+    <!-- Scroll-Linked Code Typing Engine -->
+    <div id="code-bg-container">
+        <div id="code-bg-text"></div>
+    </div>
+
+    <!-- Sticky Glass Navigation -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-4 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto glass-panel rounded-full px-6 py-3 flex justify-between items-center relative">
+            <div class="cyber-font font-bold text-xl tracking-wider theme-text-primary">
+                <span class="text-glow-cyan">N</span>AHIN<span class="text-glow-magenta">.</span>
+            </div>
+            
+            <!-- Desktop Links -->
+            <div class="hidden md:flex space-x-6 text-sm font-medium items-center">
+                <a href="#hero" class="hover:text-cyan-400 transition-colors theme-text-primary">Home</a>
+                <a href="#about" class="hover:text-cyan-400 transition-colors theme-text-primary">About</a>
+                <a href="#skills" class="hover:text-cyan-400 transition-colors theme-text-primary">Skills</a>
+                <a href="#experience" class="hover:text-cyan-400 transition-colors theme-text-primary">Experience</a>
+                <a href="#projects" class="hover:text-cyan-400 transition-colors theme-text-primary">Projects</a>
+            </div>
+            
+            <!-- Right Actions (Theme + CV + Mobile Menu) -->
+            <div class="flex items-center gap-4">
+                <!-- Unified Day/Night Toggle Button -->
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-black/10 transition-colors theme-text-primary" title="Toggle Light/Dark Mode">
+                    <i class="fas fa-sun text-lg"></i>
+                </button>
+                
+                <a href="https://drive.google.com/file/d/1SDf96tIofYqSYnF788vVd3qRUtdVQqWf/view?usp=sharing" target="_blank" class="ios27-btn !px-5 !py-2 !text-xs hidden md:inline-flex">Download CV</a>
+                
+                <!-- Mobile Hamburger Button -->
+                <button id="mobile-menu-btn" class="md:hidden theme-text-primary focus:outline-none hover:text-cyan-400 transition-colors">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Fixed Mobile Dropdown Menu -->
+            <div id="mobile-menu" class="absolute top-[80px] left-0 w-full glass-panel p-6 flex flex-col gap-6 text-center transform -translate-y-10 opacity-0 pointer-events-none transition-all duration-300 md:hidden">
+                <a href="#hero" class="mobile-link text-lg theme-text-primary font-bold hover:text-cyan-400 transition-colors">Home</a>
+                <a href="#about" class="mobile-link text-lg theme-text-primary font-bold hover:text-cyan-400 transition-colors">About</a>
+                <a href="#skills" class="mobile-link text-lg theme-text-primary font-bold hover:text-cyan-400 transition-colors">Skills</a>
+                <a href="#experience" class="mobile-link text-lg theme-text-primary font-bold hover:text-cyan-400 transition-colors">Experience</a>
+                <a href="#projects" class="mobile-link text-lg theme-text-primary font-bold hover:text-cyan-400 transition-colors">Projects</a>
+                <a href="#contact" class="mobile-link text-lg theme-text-primary font-bold hover:text-cyan-400 transition-colors">Contact</a>
+                <a href="https://drive.google.com/file/d/1SDf96tIofYqSYnF788vVd3qRUtdVQqWf/view?usp=sharing" target="_blank" class="ios27-btn w-full mt-4">Download CV</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Floating AI Assistant Button -->
+    <button id="open-ai-chat" class="ios27-btn !fixed bottom-6 right-6 z-[90] !p-0 w-16 h-16 !rounded-full shadow-[0_0_20px_var(--neon-cyan)] flex items-center justify-center transition-transform hover:scale-110 group">
+        <i class="fas fa-robot text-2xl" style="color: var(--neon-cyan);"></i>
+    </button>
+
+    <!-- AI Chatbox Fullscreen Page / Modal -->
+    <div id="ai-chat-page" class="fixed inset-0 z-[100] hidden flex-col h-[100dvh] overflow-hidden theme-chat-overlay backdrop-blur-2xl transition-opacity duration-500 opacity-0">
+        
+        <!-- Chat Header (Fixed Height) -->
+        <div class="w-full border-b theme-border p-6 flex justify-between items-center theme-inner-bg shrink-0">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full border border-cyan-400/50 flex items-center justify-center bg-cyan-400/10 relative">
+                    <i class="fas fa-robot text-cyan-400 text-xl"></i>
+                    <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 theme-border-base rounded-full"></span>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold cyber-font theme-text-primary">NAHIN_AI <span class="text-xs font-mono theme-text-cyan ml-2">v2.0</span></h2>
+                    <p class="text-xs theme-text-secondary font-mono">Personal Assistant // Online</p>
+                </div>
+            </div>
+            <button id="close-ai-chat" class="ios27-btn !p-2 !w-10 !h-10 !rounded-full bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500 hover:text-white">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Chat History Area (Scrollable Flex Region) -->
+        <div id="chat-history" class="flex-1 min-h-0 overflow-y-auto overscroll-contain p-6 flex flex-col gap-6 max-w-4xl mx-auto w-full relative">
+            <div class="flex gap-4 animate-fade-in">
+                <div class="w-8 h-8 rounded-full border border-cyan-400/30 flex items-center justify-center bg-cyan-400/10 shrink-0 mt-1">
+                    <i class="fas fa-robot text-xs text-cyan-400"></i>
+                </div>
+                <div class="chat-bubble-ai p-4 text-sm theme-text-primary max-w-[80%] shadow-lg">
+                    System initialized. I am the AI assistant for MD. ZUHAM HOSSAIN NAHIN. I can answer any questions about his skills, education, work experience, and projects. How can I help you today?
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggestive Questions & Input Area (Fixed to bottom) -->
+        <div class="w-full border-t theme-border theme-inner-bg p-6 pb-8 shrink-0">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-wrap gap-2 mb-4" id="chat-suggestions">
+                    <button class="suggestion-chip ios27-btn !px-4 !py-1.5 !text-xs !bg-transparent theme-border theme-text-tertiary hover:theme-text-cyan">What is your tech stack?</button>
+                    <button class="suggestion-chip ios27-btn !px-4 !py-1.5 !text-xs !bg-transparent theme-border theme-text-tertiary hover:theme-text-cyan">Tell me about your experience.</button>
+                    <button class="suggestion-chip ios27-btn !px-4 !py-1.5 !text-xs !bg-transparent theme-border theme-text-tertiary hover:theme-text-cyan">Where do you study?</button>
+                    <button class="suggestion-chip ios27-btn !px-4 !py-1.5 !text-xs !bg-transparent theme-border theme-text-tertiary hover:theme-text-cyan">What projects have you built?</button>
+                </div>
+                <!-- AI Chat Internal Form -->
+                <form id="chat-form" class="flex gap-4" onsubmit="event.preventDefault();">
+                    <input type="text" id="chat-input" class="flex-grow theme-input-bg theme-border rounded-2xl px-6 py-4 theme-text-primary focus:outline-none transition-all font-mono text-sm" placeholder="Ask me anything about Nahin..." autocomplete="off">
+                    <button type="submit" class="ios27-btn !p-0 w-14 h-14 !rounded-2xl shrink-0 flex items-center justify-center">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <main class="perspective-container relative z-10 flex flex-col items-center opacity-0 transition-opacity duration-1000" id="main-portfolio">
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="min-h-screen w-full flex items-center justify-center px-6 pt-20">
+            <div class="max-w-4xl text-center reveal-3d">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight cyber-font">
+                    MD. ZUHAM HOSSAIN <br />
+                    <span class="text-transparent bg-clip-text" style="background-image: linear-gradient(to right, var(--neon-cyan), var(--neon-magenta));">NAHIN</span>
+                </h1>
+                <h2 class="text-xl md:text-3xl theme-text-tertiary mb-10 font-light cyber-font">
+                    Full Stack Web Developer <span style="color: var(--neon-cyan); opacity: 0.5;">|</span> QA Engineer <span style="color: var(--neon-magenta); opacity: 0.5;">|</span> Software Engineer
+                </h2>
+                
+                <div class="flex flex-wrap justify-center gap-6 mt-8">
+                    <a href="#projects" class="ios27-btn">
+                        <i class="fas fa-layer-group"></i> View Projects
+                    </a>
+                    <a href="https://drive.google.com/file/d/1SDf96tIofYqSYnF788vVd3qRUtdVQqWf/view?usp=sharing" target="_blank" class="ios27-btn">
+                        <i class="fas fa-file-pdf text-lg"></i> Resume
+                    </a>
+                    <a href="https://github.com/nahin9611" target="_blank" class="ios27-btn">
+                        <i class="fa-brands fa-github text-lg"></i> GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="min-h-screen w-full flex items-center justify-center px-6 py-24">
+            <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <div class="reveal-left">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8 cyber-font">
+                        About <span class="text-glow-cyan">Me</span>
+                    </h2>
+                    <div class="glass-panel p-8 theme-text-tertiary leading-relaxed space-y-6 text-lg tilt-card">
+                        <div class="tilt-card-content">
+                            <p>
+                                I am a passionate problem solver and a dedicated Software Engineer. My journey in tech is driven by an insatiable curiosity for how systems communicate and how logic can build the future.
+                            </p>
+                            <p>
+                                Currently pursuing my B.Sc. in Software Engineering at <strong class="theme-text-primary">Daffodil International University (DIU)</strong>, I balance academic rigor with practical, hands-on development and checking software for quality assurance.
+                            </p>
+                            <div class="flex items-center gap-4 mt-4 theme-inner-bg p-4 rounded-xl border theme-border">
+                                <div class="w-12 h-12 rounded-full flex items-center justify-center text-xl text-white" style="background: linear-gradient(135deg, var(--neon-cyan), #2563eb);">
+                                    <i class="fas fa-bug"></i>
+                                </div>
+                                <div>
+                                    <h4 class="theme-text-primary font-semibold cyber-font">Quality Assurance</h4>
+                                    <p class="text-sm theme-text-secondary">Focusing on software reliability and defect identification.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 mt-4 theme-inner-bg p-4 rounded-xl border theme-border">
+                                <div class="w-12 h-12 rounded-full flex items-center justify-center text-xl text-white" style="background: linear-gradient(135deg, var(--neon-magenta), #db2777);">
+                                    <i class="fas fa-layer-group"></i>
+                                </div>
+                                <div>
+                                    <h4 class="theme-text-primary font-semibold cyber-font">Full Stack Architect</h4>
+                                    <p class="text-sm theme-text-secondary">Building complete web environments from frontend to database.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal-right hidden lg:flex justify-center relative">
+                    <div class="w-80 h-80 glass-panel rounded-full flex items-center justify-center p-2 tilt-card border-t-2 border-b-2" style="border-top-color: var(--neon-cyan); border-bottom-color: var(--neon-magenta);">
+                        <div class="tilt-card-content w-full h-full">
+                            <img src="https://i.postimg.cc/RFqHy5Lb/Whats-App-Image-2026-09-23-at-3-33-22-PM.jpg" alt="Zuham Hossain Nahin" class="w-full h-full object-cover rounded-full border theme-border">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GLOWING SKILLS MATRIX -->
+        <section id="skills" class="min-h-screen w-full py-24 px-6 flex items-center justify-center relative">
+            <div class="max-w-6xl w-full">
+                <div class="text-center reveal-3d mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold cyber-font inline-block relative">
+                        Skills <span class="text-glow-magenta">Matrix</span>
+                        <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 rounded"></div>
+                    </h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 perspective-container">
+                    
+                    <!-- Frontend -->
+                    <div class="glass-panel p-8 tilt-card reveal-left flex flex-col justify-center">
+                        <div class="tilt-card-content">
+                            <h3 class="text-xl font-bold mb-6 flex items-center gap-3 theme-text-primary"><i class="fas fa-laptop-code theme-text-cyan"></i> Frontend Architecture</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="flex justify-between mb-2 text-sm theme-text-primary"><span class="font-mono">Next.js / React</span><span class="theme-text-cyan">95%</span></div>
+                                    <div class="w-full h-2 theme-inner-bg rounded-full overflow-hidden border theme-border"><div class="h-full w-[95%] rounded-full relative" style="background: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan);"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2 text-sm theme-text-primary"><span class="font-mono">Tailwind CSS</span><span class="theme-text-cyan">90%</span></div>
+                                    <div class="w-full h-2 theme-inner-bg rounded-full overflow-hidden border theme-border"><div class="h-full w-[90%] rounded-full relative" style="background: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan);"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2 text-sm theme-text-primary"><span class="font-mono">HTML / CSS / JS</span><span class="theme-text-cyan">95%</span></div>
+                                    <div class="w-full h-2 theme-inner-bg rounded-full overflow-hidden border theme-border"><div class="h-full w-[95%] rounded-full relative" style="background: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan);"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Backend & Core -->
+                    <div class="glass-panel p-8 tilt-card reveal-right flex flex-col justify-center" style="transition-delay: 100ms;">
+                        <div class="tilt-card-content">
+                            <h3 class="text-xl font-bold mb-6 flex items-center gap-3 theme-text-primary"><i class="fas fa-server theme-text-magenta"></i> Backend & Core Logic</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="flex justify-between mb-2 text-sm theme-text-primary"><span class="font-mono">Python</span><span class="theme-text-magenta">85%</span></div>
+                                    <div class="w-full h-2 theme-inner-bg rounded-full overflow-hidden border theme-border"><div class="h-full w-[85%] rounded-full relative" style="background: var(--neon-magenta); box-shadow: 0 0 10px var(--neon-magenta);"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2 text-sm theme-text-primary"><span class="font-mono">Java & C</span><span class="theme-text-magenta">80%</span></div>
+                                    <div class="w-full h-2 theme-inner-bg rounded-full overflow-hidden border theme-border"><div class="h-full w-[80%] rounded-full relative" style="background: var(--neon-magenta); box-shadow: 0 0 10px var(--neon-magenta);"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2 text-sm theme-text-primary"><span class="font-mono">RESTful APIs & DBs</span><span class="theme-text-magenta">85%</span></div>
+                                    <div class="w-full h-2 theme-inner-bg rounded-full overflow-hidden border theme-border"><div class="h-full w-[85%] rounded-full relative" style="background: var(--neon-magenta); box-shadow: 0 0 10px var(--neon-magenta);"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI & Data -->
+                    <div class="glass-panel p-8 tilt-card reveal-left flex flex-col justify-center" style="transition-delay: 100ms;">
+                        <div class="tilt-card-content">
+                            <h3 class="text-xl font-bold mb-6 flex items-center gap-3 theme-text-primary"><i class="fas fa-brain theme-text-magenta"></i> AI & Data Intelligence</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="flex justify-between mb-2 text-sm theme-text-primary"><span class="font-mono">Vision AI Models</span><span class="theme-text-magenta">75%</span></div>
+                                    <div class="w-full h-2 theme-inner-bg rounded-full overflow-hidden border theme-border"><div class="h-full w-[75%] rounded-full relative" style="background: var(--neon-magenta); box-shadow: 0 0 10px var(--neon-magenta);"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2 text-sm theme-text-primary"><span class="font-mono">Agentic AI Frameworks</span><span class="theme-text-magenta">80%</span></div>
+                                    <div class="w-full h-2 theme-inner-bg rounded-full overflow-hidden border theme-border"><div class="h-full w-[80%] rounded-full relative" style="background: var(--neon-magenta); box-shadow: 0 0 10px var(--neon-magenta);"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2 text-sm theme-text-primary"><span class="font-mono">Data Viz (Chart.js)</span><span class="theme-text-magenta">85%</span></div>
+                                    <div class="w-full h-2 theme-inner-bg rounded-full overflow-hidden border theme-border"><div class="h-full w-[85%] rounded-full relative" style="background: var(--neon-magenta); box-shadow: 0 0 10px var(--neon-magenta);"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QA & DevOps -->
+                    <div class="glass-panel p-8 tilt-card reveal-right flex flex-col justify-center" style="transition-delay: 200ms;">
+                        <div class="tilt-card-content">
+                            <h3 class="text-xl font-bold mb-6 flex items-center gap-3 theme-text-primary"><i class="fas fa-bug theme-text-cyan"></i> Quality Assurance & Tools</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="flex justify-between mb-2 text-sm theme-text-primary"><span class="font-mono">Software Testing</span><span class="theme-text-cyan">90%</span></div>
+                                    <div class="w-full h-2 theme-inner-bg rounded-full overflow-hidden border theme-border"><div class="h-full w-[90%] rounded-full relative" style="background: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan);"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2 text-sm theme-text-primary"><span class="font-mono">Git & Version Control</span><span class="theme-text-cyan">95%</span></div>
+                                    <div class="w-full h-2 theme-inner-bg rounded-full overflow-hidden border theme-border"><div class="h-full w-[95%] rounded-full relative" style="background: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan);"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2 text-sm theme-text-primary"><span class="font-mono">Vercel Deployment</span><span class="theme-text-cyan">90%</span></div>
+                                    <div class="w-full h-2 theme-inner-bg rounded-full overflow-hidden border theme-border"><div class="h-full w-[90%] rounded-full relative" style="background: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan);"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE SECTION -->
+        <section id="experience" class="min-h-screen w-full py-24 px-6 flex items-center justify-center">
+            <div class="max-w-5xl w-full">
+                <div class="text-center reveal-3d mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold cyber-font inline-block relative">
+                        Work <span class="text-glow-cyan">Experience</span>
+                        <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 rounded"></div>
+                    </h2>
+                </div>
+
+                <div class="space-y-8 theme-timeline perspective-container relative">
+                    
+                    <!-- Role 1: FridaySoft -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group reveal-3d">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border theme-border theme-bg-base shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 theme-text-cyan" style="box-shadow: 0 0 15px var(--neon-cyan);">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-panel p-6 tilt-card">
+                            <div class="tilt-card-content">
+                                <div class="flex flex-col xl:flex-row xl:items-center justify-between mb-2 gap-2">
+                                    <h3 class="font-bold theme-text-primary text-xl cyber-font">Full Stack Web Developer Intern</h3>
+                                    <time class="font-mono text-xs px-2 py-1 rounded w-fit theme-inner-bg border theme-border theme-text-cyan">2026 - Present</time>
+                                </div>
+                                <div class="theme-text-secondary font-mono text-sm mb-4">FridaySoft</div>
+                                <p class="text-sm theme-text-tertiary">Contributing to full-stack web development projects, ensuring code quality, and implementing modern web solutions for scalable environments.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Role 2: FlyRank -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group reveal-3d" style="transition-delay: 100ms;">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border theme-border theme-bg-base shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 theme-text-magenta" style="box-shadow: 0 0 15px var(--neon-magenta);">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-panel p-6 tilt-card">
+                            <div class="tilt-card-content">
+                                <div class="flex flex-col xl:flex-row xl:items-center justify-between mb-2 gap-2">
+                                    <h3 class="font-bold theme-text-primary text-xl cyber-font">Software Engineering Intern</h3>
+                                    <time class="font-mono text-xs px-2 py-1 rounded w-fit theme-inner-bg border theme-border theme-text-magenta">Recent</time>
+                                </div>
+                                <div class="theme-text-secondary font-mono text-sm mb-4">FlyRank</div>
+                                <ul class="text-sm theme-text-tertiary space-y-2 list-none">
+                                    <li class="relative pl-5 before:content-['▹'] before:absolute before:left-0 theme-text-magenta" style="color: inherit;">Developed responsive frontend interfaces and consumed backend RESTful APIs using modern web workflows.</li>
+                                    <li class="relative pl-5 before:content-['▹'] before:absolute before:left-0 theme-text-magenta" style="color: inherit;">Applied Git version control and clean code standards to collaborate on AI-integrated web application modules.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Role 3: Interspeed -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group reveal-3d" style="transition-delay: 200ms;">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border theme-border theme-bg-base shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 theme-text-cyan" style="box-shadow: 0 0 15px var(--neon-cyan);">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-panel p-6 tilt-card">
+                            <div class="tilt-card-content">
+                                <div class="flex flex-col xl:flex-row xl:items-center justify-between mb-2 gap-2">
+                                    <h3 class="font-bold theme-text-primary text-xl cyber-font">Supervisor</h3>
+                                    <time class="font-mono text-xs px-2 py-1 rounded w-fit theme-inner-bg border theme-border theme-text-cyan">2020 - 2023</time>
+                                </div>
+                                <div class="theme-text-secondary font-mono text-sm mb-4">Interspeed Marketing Solutions Ltd.</div>
+                                <ul class="text-sm theme-text-tertiary space-y-2 list-none">
+                                    <li class="relative pl-5 before:content-['▹'] before:absolute before:left-0 theme-text-cyan" style="color: inherit;">Supervised day-to-day operational workflows and team deliverables, ensuring project timelines were met.</li>
+                                    <li class="relative pl-5 before:content-['▹'] before:absolute before:left-0 theme-text-cyan" style="color: inherit;">Coordinated cross-functional teams, managing task delegation, quality control, and stakeholder communication.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="min-h-screen w-full py-24 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center reveal-3d mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold cyber-font inline-block relative">
+                        Neural <span class="text-glow-magenta">Projects</span>
+                        <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 rounded"></div>
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-container">
+                    
+                    <!-- Project 1 -->
+                    <div class="glass-panel p-6 tilt-card reveal-3d group cursor-pointer h-full flex flex-col">
+                        <div class="tilt-card-content flex-grow flex flex-col">
+                            <div class="h-48 w-full rounded-xl theme-inner-bg mb-6 overflow-hidden relative border theme-border flex items-center justify-center">
+                                <i class="fas fa-utensils text-6xl group-hover:scale-110 transition-transform duration-500 theme-text-cyan"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold theme-text-primary mb-2 cyber-font">Nahin Food Corner</h3>
+                            <p class="theme-text-secondary text-sm mb-6 flex-grow">A modern, responsive web application designed for browsing food menus and placing online orders with real-time filtering and interactive cart management.</p>
+                            
+                            <div class="flex justify-between items-center mt-auto pt-4 border-t theme-border">
+                                <div class="flex gap-2 flex-wrap">
+                                    <span class="text-xs font-mono theme-inner-bg px-2 py-1 rounded border theme-border theme-text-cyan">Next.js</span>
+                                    <span class="text-xs font-mono theme-inner-bg px-2 py-1 rounded border theme-border theme-text-cyan">Tailwind</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <a href="https://github.com/nahin9611/nahin-food-corner" target="_blank" class="ios27-btn !p-2 !rounded-full !w-10 !h-10">
+                                        <i class="fa-brands fa-github text-lg"></i>
+                                    </a>
+                                    <a href="https://nahin-food-corner.vercel.app/" target="_blank" class="ios27-btn !p-2 !rounded-full !w-10 !h-10">
+                                        <i class="fas fa-external-link-alt text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="glass-panel p-6 tilt-card reveal-3d group cursor-pointer h-full flex flex-col" style="transition-delay: 100ms;">
+                        <div class="tilt-card-content flex-grow flex flex-col">
+                            <div class="h-48 w-full rounded-xl theme-inner-bg mb-6 overflow-hidden relative border theme-border flex items-center justify-center">
+                                <i class="fas fa-desktop text-6xl group-hover:scale-110 transition-transform duration-500 theme-text-magenta"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold theme-text-primary mb-2 cyber-font">Aura-OS</h3>
+                            <p class="theme-text-secondary text-sm mb-6 flex-grow">A futuristic, operating-system-inspired desktop interface built to manage AI agent workflows with collapsible, moveable app panels and persistent history.</p>
+                            
+                            <div class="flex justify-between items-center mt-auto pt-4 border-t theme-border">
+                                <div class="flex gap-2 flex-wrap">
+                                    <span class="text-xs font-mono theme-inner-bg px-2 py-1 rounded border theme-border theme-text-magenta">Next.js</span>
+                                    <span class="text-xs font-mono theme-inner-bg px-2 py-1 rounded border theme-border theme-text-magenta">Agentic AI</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <a href="https://github.com/nahin9611/Aura-OS" target="_blank" class="ios27-btn !p-2 !rounded-full !w-10 !h-10">
+                                        <i class="fa-brands fa-github text-lg"></i>
+                                    </a>
+                                    <a href="https://auraos-nahin9611.vercel.app/" target="_blank" class="ios27-btn !p-2 !rounded-full !w-10 !h-10">
+                                        <i class="fas fa-external-link-alt text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="glass-panel p-6 tilt-card reveal-3d group cursor-pointer h-full flex flex-col" style="transition-delay: 200ms;">
+                        <div class="tilt-card-content flex-grow flex flex-col">
+                            <div class="h-48 w-full rounded-xl theme-inner-bg mb-6 overflow-hidden relative border theme-border flex items-center justify-center">
+                                <i class="fas fa-eye text-6xl group-hover:scale-110 transition-transform duration-500 theme-text-cyan"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold theme-text-primary mb-2 cyber-font">NeuroGlass</h3>
+                            <p class="theme-text-secondary text-sm mb-6 flex-grow">An Apple-inspired glassmorphism study workspace that converts physical documents into structured digital exercises using automated Vision AI scanning.</p>
+                            
+                            <div class="flex justify-between items-center mt-auto pt-4 border-t theme-border">
+                                <div class="flex gap-2 flex-wrap">
+                                    <span class="text-xs font-mono theme-inner-bg px-2 py-1 rounded border theme-border theme-text-cyan">Vision AI</span>
+                                    <span class="text-xs font-mono theme-inner-bg px-2 py-1 rounded border theme-border theme-text-cyan">Next.js</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <a href="https://github.com/nahin9611/neuroglass" target="_blank" class="ios27-btn !p-2 !rounded-full !w-10 !h-10">
+                                        <i class="fa-brands fa-github text-lg"></i>
+                                    </a>
+                                    <a href="https://neuroglass.vercel.app/" target="_blank" class="ios27-btn !p-2 !rounded-full !w-10 !h-10">
+                                        <i class="fas fa-external-link-alt text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="glass-panel p-6 tilt-card reveal-3d group cursor-pointer h-full flex flex-col">
+                        <div class="tilt-card-content flex-grow flex flex-col">
+                            <div class="h-48 w-full rounded-xl theme-inner-bg mb-6 overflow-hidden relative border theme-border flex items-center justify-center">
+                                <i class="fas fa-brain text-6xl group-hover:scale-110 transition-transform duration-500 theme-text-cyan"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold theme-text-primary mb-2 cyber-font">AI Knowledge Base</h3>
+                            <p class="theme-text-secondary text-sm mb-6 flex-grow">An interactive knowledge management hub and smart document editor featuring context-aware text drafting and an AI agent assistant for summarizing notes.</p>
+                            
+                            <div class="flex justify-between items-center mt-auto pt-4 border-t theme-border">
+                                <div class="flex gap-2 flex-wrap">
+                                    <span class="text-xs font-mono theme-inner-bg px-2 py-1 rounded border theme-border theme-text-cyan">Markdown</span>
+                                    <span class="text-xs font-mono theme-inner-bg px-2 py-1 rounded border theme-border theme-text-cyan">Next.js</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <a href="https://github.com/nahin9611/ai-knowledge-base" target="_blank" class="ios27-btn !p-2 !rounded-full !w-10 !h-10">
+                                        <i class="fa-brands fa-github text-lg"></i>
+                                    </a>
+                                    <a href="https://ai-knowledge-base-ochre.vercel.app/" target="_blank" class="ios27-btn !p-2 !rounded-full !w-10 !h-10">
+                                        <i class="fas fa-external-link-alt text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 5 -->
+                    <div class="glass-panel p-6 tilt-card reveal-3d group cursor-pointer h-full flex flex-col" style="transition-delay: 100ms;">
+                        <div class="tilt-card-content flex-grow flex flex-col">
+                            <div class="h-48 w-full rounded-xl theme-inner-bg mb-6 overflow-hidden relative border theme-border flex items-center justify-center">
+                                <i class="fas fa-vote-yea text-6xl group-hover:scale-110 transition-transform duration-500 theme-text-magenta"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold theme-text-primary mb-2 cyber-font">Amar Vote Portal</h3>
+                            <p class="theme-text-secondary text-sm mb-6 flex-grow">A civic-tech web platform for digital voting visualization, live election data tracking with seat maps, and an interactive digital ballot user flow.</p>
+                            
+                            <div class="flex justify-between items-center mt-auto pt-4 border-t theme-border">
+                                <div class="flex gap-2 flex-wrap">
+                                    <span class="text-xs font-mono theme-inner-bg px-2 py-1 rounded border theme-border theme-text-magenta">React</span>
+                                    <span class="text-xs font-mono theme-inner-bg px-2 py-1 rounded border theme-border theme-text-magenta">Data Viz</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <a href="https://github.com/nahin9611/BD-Election-Portal-Amar-Vote" target="_blank" class="ios27-btn !p-2 !rounded-full !w-10 !h-10">
+                                        <i class="fa-brands fa-github text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 6 -->
+                    <div class="glass-panel p-6 tilt-card reveal-3d group cursor-pointer h-full flex flex-col" style="transition-delay: 200ms;">
+                        <div class="tilt-card-content flex-grow flex flex-col">
+                            <div class="h-48 w-full rounded-xl theme-inner-bg mb-6 overflow-hidden relative border theme-border flex items-center justify-center">
+                                <i class="fas fa-bus text-6xl group-hover:scale-110 transition-transform duration-500 theme-text-cyan"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold theme-text-primary mb-2 cyber-font">NR-Booking</h3>
+                            <p class="theme-text-secondary text-sm mb-6 flex-grow">An advanced, logic-heavy bus reservation engine handling real-time seat allocation, scheduling, and dynamic distance-based fare calculation.</p>
+                            
+                            <div class="flex justify-between items-center mt-auto pt-4 border-t theme-border">
+                                <div class="flex gap-2 flex-wrap">
+                                    <span class="text-xs font-mono theme-inner-bg px-2 py-1 rounded border theme-border theme-text-cyan">Java / C</span>
+                                    <span class="text-xs font-mono theme-inner-bg px-2 py-1 rounded border theme-border theme-text-cyan">OOP</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <a href="https://github.com/nahin9611/NR-BOOKING-a-reliable-advanced-bus-ticket-reservation-system" target="_blank" class="ios27-btn !p-2 !rounded-full !w-10 !h-10">
+                                        <i class="fa-brands fa-github text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION WITH FUNCTIONAL WEB3FORMS INTEGRATION -->
+        <section id="contact" class="min-h-screen w-full py-24 px-6 flex items-center justify-center relative">
+            <div class="max-w-4xl w-full reveal-3d relative z-10">
+                <div class="glass-panel p-10 md:p-14">
+                    <div class="text-center mb-10">
+                        <h2 class="text-4xl md:text-5xl font-bold cyber-font mb-4">
+                            Initialize <span class="text-glow-cyan">Connection</span>
+                        </h2>
+                        <p class="theme-text-secondary">Secure link ready. Send a transmission directly to my inbox.</p>
+                    </div>
+
+                    <!-- Web3Forms Form Setup -->
+                    <form id="contact-form" class="space-y-6">
+                        
+                        <!-- REQUIRED: Replace value with your Web3Forms Access Key -->
+                        <input type="hidden" name="access_key" value="b8dacb70-c684-45e0-8ba1-4609a16ffbfa">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-xs font-mono theme-text-cyan uppercase tracking-widest">Identifier (Name)</label>
+                                <input type="text" name="name" required class="w-full theme-input-bg theme-border rounded-xl px-4 py-3 theme-text-primary focus:outline-none transition-all backdrop-blur-sm" placeholder="John Doe" style="outline-color: var(--neon-cyan);">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-mono theme-text-magenta uppercase tracking-widest">Comm Link (Email)</label>
+                                <input type="email" name="email" required class="w-full theme-input-bg theme-border rounded-xl px-4 py-3 theme-text-primary focus:outline-none transition-all backdrop-blur-sm" placeholder="john@example.com" style="outline-color: var(--neon-magenta);">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-mono theme-text-secondary uppercase tracking-widest">Data Payload (Message)</label>
+                            <textarea name="message" required rows="5" class="w-full theme-input-bg theme-border rounded-xl px-4 py-3 theme-text-primary focus:outline-none transition-all backdrop-blur-sm resize-none" placeholder="Enter your message here..." style="outline-color: var(--neon-cyan);"></textarea>
+                        </div>
+                        
+                        <!-- Anti-Spam Check -->
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                        <div class="text-center pt-4">
+                            <button type="submit" id="submit-btn" class="ios27-btn !px-12 !py-4 !text-base w-full md:w-auto">
+                                <i class="fas fa-paper-plane mr-2"></i> Transmit Data
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="mt-12 pt-8 border-t theme-border">
+                        <p class="text-center text-sm font-mono theme-text-secondary mb-6 uppercase tracking-widest">Or connect via networks</p>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=nahin2305341401@diu.edu.bd" target="_blank" class="ios27-btn !p-0 w-12 h-12 !rounded-full transition-transform hover:scale-110" title="Email Me">
+                                <i class="fas fa-envelope text-lg"></i>
+                            </a>
+                            <a href="https://www.facebook.com/share/19ARXDTqbM/?mibextid=wwXIfr" target="_blank" class="ios27-btn !p-0 w-12 h-12 !rounded-full transition-transform hover:scale-110">
+                                <i class="fa-brands fa-facebook-f text-lg"></i>
+                            </a>
+                            <a href="https://github.com/nahin9611" target="_blank" class="ios27-btn !p-0 w-12 h-12 !rounded-full transition-transform hover:scale-110">
+                                <i class="fa-brands fa-github text-lg"></i>
+                            </a>
+                            <a href="https://www.instagram.com/zuham_hossain_nahin" target="_blank" class="ios27-btn !p-0 w-12 h-12 !rounded-full transition-transform hover:scale-110">
+                                <i class="fa-brands fa-instagram text-lg"></i>
+                            </a>
+                            <a href="https://www.threads.com/@zuham_hossain_nahin" target="_blank" class="ios27-btn !p-0 w-12 h-12 !rounded-full transition-transform hover:scale-110">
+                                <i class="fa-brands fa-threads text-lg"></i>
+                            </a>
+                            <a href="https://www.tiktok.com/@zuham_hossain_nahin" target="_blank" class="ios27-btn !p-0 w-12 h-12 !rounded-full transition-transform hover:scale-110">
+                                <i class="fa-brands fa-tiktok text-lg"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/zuhamhossainnahin/" target="_blank" class="ios27-btn !p-0 w-12 h-12 !rounded-full transition-transform hover:scale-110">
+                                <i class="fa-brands fa-linkedin-in text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="w-full py-8 text-center theme-text-secondary text-sm border-t theme-border theme-inner-bg backdrop-blur-md">
+            <p>&copy; 2026 MD. ZUHAM HOSSAIN NAHIN. All rights reserved.</p>
+            <p class="mt-2 font-mono text-xs">Built with Vanilla HTML, CSS & JavaScript.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // --- 0. System Boot-Up Sequence ---
+        const bootScreen = document.getElementById('boot-screen');
+        const bootText = document.getElementById('boot-text');
+        const bootCursor = document.getElementById('boot-cursor');
+        const mainPortfolio = document.getElementById('main-portfolio');
+        
+        const bootSequence = [
+            "INITIALIZING OS KERNEL...",
+            "LOADING MODULE: NAHIN_CORE.JS",
+            "ESTABLISHING SECURE CONNECTION...",
+            "MOUNTING WEBGL AND CSS ASSETS...",
+            "BYPASSING SECURITY PROTOCOLS...",
+            "ACCESS GRANTED. WELCOME."
+        ];
+        
+        let bootIndex = 0;
+        document.body.style.overflow = 'hidden'; 
+
+        function playBootSequence() {
+            if (bootIndex < bootSequence.length) {
+                bootText.innerHTML += `<div>> ${bootSequence[bootIndex]}</div>`;
+                bootIndex++;
+                setTimeout(playBootSequence, 150 + Math.random() * 200);
+            } else {
+                bootCursor.style.display = 'block';
+                setTimeout(() => {
+                    bootScreen.classList.add('opacity-0');
+                    mainPortfolio.classList.remove('opacity-0');
+                    setTimeout(() => {
+                        bootScreen.style.display = 'none';
+                        document.body.style.overflow = ''; 
+                    }, 500);
+                }, 600);
+            }
+        }
+        window.addEventListener('load', playBootSequence);
+
+        // --- 1. Day / Night Mode Toggle ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.querySelector('#theme-toggle i');
+        let isLightMode = false;
+
+        function toggleTheme() {
+            isLightMode = !isLightMode;
+            document.body.classList.toggle('light-mode');
+            if (isLightMode) {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        }
+        themeToggleBtn.addEventListener('click', toggleTheme);
+
+        // --- 2. Mobile Menu Logic ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        function toggleMobileMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('-translate-y-10', 'opacity-0', 'pointer-events-none');
+                mobileMenu.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+            } else {
+                mobileMenu.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+                mobileMenu.classList.add('-translate-y-10', 'opacity-0', 'pointer-events-none');
+            }
+        }
+        
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMenuOpen) toggleMobileMenu();
+            });
+        });
+
+        // --- 3. JS Code Typing Engine ---
+        const rawCodeSnippet = `
+/* NAHIN.OS System Initialization */
+import { AIWorkspace, NeuralNet, VisionModel } from '@nahin/core';
+import { authenticateUser, establishSecureLink } from '@/lib/auth';
+import { useState, useEffect } from 'react';
+
+export default function AgenticWorkspace() {
+    const [systemStatus, setSystemStatus] = useState('BOOTING');
+    const [nodes, setNodes] = useState([]);
+
+    useEffect(() => {
+        async function initializeCore() {
+            try {
+                const link = await establishSecureLink({
+                    protocol: 'WSS', encryption: 'AES-256-GCM', port: 443
+                });
+                if (link.secure) setSystemStatus('ONLINE');
+                const activeNodes = await NeuralNet.discoverNodes();
+                setNodes(activeNodes);
+            } catch (error) { setSystemStatus('OFFLINE'); }
+        }
+        initializeCore();
+    }, []);
+
+    return (
+        <AIWorkspace status={systemStatus}>
+            <NodeGraph data={nodes} />
+            <TerminalInterface theme="cyberpunk" />
+        </AIWorkspace>
+    );
+}
+// [SYS] Memory allocation optimized.
+`;
+        const fullCodeString = rawCodeSnippet.repeat(15);
+        const codeBg = document.getElementById('code-bg-text');
+        const codeContainer = document.getElementById('code-bg-container');
+        let targetChars = 0; let currentChars = 0;
+        
+        function updateTyping() {
+            currentChars += (targetChars - currentChars) * 0.1;
+            if (Math.abs(targetChars - currentChars) > 0.5) {
+                const textToShow = fullCodeString.substring(0, Math.floor(currentChars));
+                codeBg.innerHTML = textToShow + '<span class="cursor-blink">█</span>';
+                codeContainer.scrollTop = codeContainer.scrollHeight;
+            }
+            requestAnimationFrame(updateTyping);
+        }
+        updateTyping();
+
+        // --- 4. Scroll Interaction Logic ---
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            const scrollPercent = currentScrollY / (document.body.scrollHeight - window.innerHeight);
+            targetChars = scrollPercent * fullCodeString.length;
+
+            const nav = document.getElementById('navbar');
+            if (currentScrollY > 50) {
+                nav.classList.add('theme-inner-bg', 'backdrop-blur-lg');
+            } else {
+                nav.classList.remove('theme-inner-bg', 'backdrop-blur-lg');
+            }
+        });
+
+        // --- 5. Intersection Observer for CSS 3D Reveals ---
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-3d, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+        // --- 6. 3D Tilt Effect on Hover for Cards ---
+        const tiltCards = document.querySelectorAll('.tilt-card');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                
+                const content = card.querySelector('.tilt-card-content');
+                if(content) content.style.transform = `translateZ(30px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                const content = card.querySelector('.tilt-card-content');
+                if(content) content.style.transform = `translateZ(0)`;
+            });
+        });
+
+        // --- 7. AI Chatbox Logic & Physics ---
+        const openChatBtn = document.getElementById('open-ai-chat');
+        const closeChatBtn = document.getElementById('close-ai-chat');
+        const chatPage = document.getElementById('ai-chat-page');
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatHistory = document.getElementById('chat-history');
+        const suggestionChips = document.querySelectorAll('.suggestion-chip');
+
+        openChatBtn.addEventListener('click', () => {
+            // Apply flex explicitly to enforce strict height boundaries
+            chatPage.classList.remove('hidden');
+            chatPage.classList.add('flex');
+            setTimeout(() => chatPage.classList.remove('opacity-0'), 10);
+            document.body.style.overflow = 'hidden'; 
+        });
+
+        closeChatBtn.addEventListener('click', () => {
+            chatPage.classList.add('opacity-0');
+            setTimeout(() => {
+                chatPage.classList.remove('flex');
+                chatPage.classList.add('hidden');
+                document.body.style.overflow = ''; 
+            }, 500);
+        });
+
+        const aiKnowledge = [
+            { keywords: ["tech", "stack", "skills", "technologies", "code", "languages", "frameworks", "tools"], response: "Nahin's tech stack includes Next.js, React, Tailwind CSS, Python, Java, C, and Agentic AI frameworks. He also specializes in Software Quality Assurance and RESTful API integrations." },
+            { keywords: ["experience", "work", "job", "intern", "flyrank", "fridaysoft", "interspeed", "career"], response: "Nahin is currently a Full Stack Web Developer Intern at FridaySoft (2026-Present). Recently, he interned at FlyRank where he developed frontend interfaces and integrated APIs. Before that, he was a Supervisor at Interspeed Marketing Solutions Ltd (2020-2023)." },
+            { keywords: ["education", "study", "university", "degree", "diu", "college"], response: "Nahin is currently pursuing a B.Sc. in Software Engineering at Daffodil International University (DIU). He previously completed his HSC at Ideal College with a GPA of 5.00." },
+            { keywords: ["projects", "portfolio", "built", "apps", "work"], response: "Nahin has built several impressive projects including 'Nahin Food Corner' (Next.js E-Commerce), 'Aura-OS' (Agentic Workspace UI), 'NeuroGlass' (Vision AI EdTech), an AI Knowledge Base, 'Amar Vote Portal', and 'NR-Booking' (Bus Reservation System)." },
+            { keywords: ["contact", "hire", "email", "reach", "message", "social"], response: "You can reach out to Nahin using the 'Initialize Connection' form on the main portfolio page, or connect with him directly via his LinkedIn or GitHub links provided!" },
+            { keywords: ["who are you", "what are you", "bot", "ai"], response: "I am a custom AI assistant built specifically for MD. ZUHAM HOSSAIN NAHIN's portfolio. I can answer questions about his skills, experience, and projects!" },
+            { keywords: ["hello", "hi", "hey", "greetings"], response: "Hello! I am Nahin's AI assistant. Ask me anything about his professional background, tech stack, or projects." },
+            { keywords: ["resume", "cv", "download", "pdf"], response: "You can download Nahin's CV by clicking the 'Download CV' button in the navigation bar at the top of the screen." }
+        ];
+
+        function getAIResponse(message) {
+            const lowerMsg = message.toLowerCase();
+            for (let item of aiKnowledge) {
+                if (item.keywords.some(kw => lowerMsg.includes(kw))) {
+                    return item.response;
+                }
+            }
+            return "I am specifically programmed to discuss MD. ZUHAM HOSSAIN NAHIN's professional profile, skills, and projects. Could you rephrase your question to ask about his background?";
+        }
+
+        function showTypingIndicator() {
+            const msgDiv = document.createElement('div');
+            msgDiv.id = 'typing-indicator';
+            msgDiv.className = `flex gap-4 animate-fade-in`;
+            msgDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full border border-cyan-400/30 flex items-center justify-center bg-cyan-400/10 shrink-0 mt-1">
+                    <i class="fas fa-robot text-xs text-cyan-400"></i>
+                </div>
+                <div class="chat-bubble-ai p-4 text-sm theme-text-primary max-w-[80%] shadow-lg flex items-center gap-1">
+                    <div class="w-2 h-2 rounded-full bg-cyan-400 animate-bounce"></div>
+                    <div class="w-2 h-2 rounded-full bg-cyan-400 animate-bounce" style="animation-delay: 0.1s"></div>
+                    <div class="w-2 h-2 rounded-full bg-cyan-400 animate-bounce" style="animation-delay: 0.2s"></div>
+                </div>
+            `;
+            chatHistory.appendChild(msgDiv);
+            requestAnimationFrame(() => chatHistory.scrollTo({ top: chatHistory.scrollHeight, behavior: 'smooth' }));
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) indicator.remove();
+        }
+
+        function appendMessage(text, isUser) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `flex gap-4 ${isUser ? 'flex-row-reverse' : ''} animate-fade-in`;
+            
+            const iconHtml = isUser 
+                ? `<div class="w-8 h-8 rounded-full border border-magenta-400/30 flex items-center justify-center bg-magenta-400/10 shrink-0 mt-1"><i class="fas fa-user text-xs text-magenta-400"></i></div>`
+                : `<div class="w-8 h-8 rounded-full border border-cyan-400/30 flex items-center justify-center bg-cyan-400/10 shrink-0 mt-1"><i class="fas fa-robot text-xs text-cyan-400"></i></div>`;
+            
+            const bubbleClass = isUser ? 'chat-bubble-user theme-text-primary' : 'chat-bubble-ai theme-text-primary';
+            
+            msgDiv.innerHTML = `
+                ${iconHtml}
+                <div class="${bubbleClass} p-4 text-sm max-w-[80%] shadow-lg">
+                    ${text}
+                </div>
+            `;
+            chatHistory.appendChild(msgDiv);
+            requestAnimationFrame(() => chatHistory.scrollTo({ top: chatHistory.scrollHeight, behavior: 'smooth' }));
+        }
+
+        function handleUserMessage(msg) {
+            if (!msg.trim()) return; 
+            
+            appendMessage(msg, true);
+            chatInput.value = '';
+            
+            const suggestionsDiv = document.getElementById('chat-suggestions');
+            if (suggestionsDiv) suggestionsDiv.style.display = 'none';
+            
+            showTypingIndicator();
+            setTimeout(() => {
+                hideTypingIndicator();
+                const response = getAIResponse(msg);
+                appendMessage(response, false);
+            }, 800 + Math.random() * 500); 
+        }
+
+        chatForm.addEventListener('submit', () => handleUserMessage(chatInput.value));
+        suggestionChips.forEach(chip => {
+            chip.addEventListener('click', () => handleUserMessage(chip.innerText));
+        });
+
+        // --- 8. Web3Forms AJAX Contact Form Submission ---
+        const realContactForm = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        realContactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(realContactForm);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            // Change button state to loading
+            const originalBtnHtml = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> TRANSMITTING...';
+
+            try {
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json"
+                    },
+                    body: json
+                });
+                
+                if (response.status == 200) {
+                    submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> TRANSMISSION SUCCESSFUL';
+                    submitBtn.style.borderColor = "var(--neon-cyan)";
+                    submitBtn.style.color = "var(--neon-cyan)";
+                    realContactForm.reset();
+                } else {
+                    submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle mr-2"></i> FAILED';
+                    submitBtn.style.color = "red";
+                }
+            } catch(error) {
+                console.log(error);
+                submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle mr-2"></i> ERROR';
+                submitBtn.style.color = "red";
+            }
+
+            // Reset button back to normal after 4 seconds
+            setTimeout(() => {
+                submitBtn.innerHTML = originalBtnHtml;
+                submitBtn.style.borderColor = "";
+                submitBtn.style.color = "";
+            }, 4000);
+        });
+
+    </script>
+</body>
+</html>
